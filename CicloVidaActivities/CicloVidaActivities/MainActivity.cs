@@ -1,6 +1,7 @@
 ﻿using Android.App;
-using Android.Widget;
+using Android.Content;
 using Android.OS;
+using Android.Widget;
 
 namespace CicloVidaActivities
 {
@@ -11,8 +12,20 @@ namespace CicloVidaActivities
         {
             base.OnCreate(bundle);
 
-            // Set our view from the "main" layout resource
-            // SetContentView (Resource.Layout.Main);
+            SetContentView(Resource.Layout.Main);
+
+            var txtNumero = FindViewById<EditText>(Resource.Id.txtNumero);
+            var cmdVerificar = FindViewById<Button>(Resource.Id.cmdVerificar);
+
+
+            cmdVerificar.Click += delegate
+            {
+                using (var resultActivity = new Intent(this, typeof(ResultActivity)))
+                {
+                    resultActivity.PutExtra("Numero", int.Parse(txtNumero.Text));
+                    StartActivity(resultActivity);
+                }
+            };
         }
     }
 }
